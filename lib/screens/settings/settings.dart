@@ -6,7 +6,8 @@ class Settings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isOn = true;
+    
+    final isOn = false;
 
     return Scaffold(
       appBar: AppBar(
@@ -40,6 +41,7 @@ class Settings extends StatelessWidget {
                       ],
                     ),
                     Spacer(),
+                    // ignore: non_constant_identifier_names
                     CupertinoSwitch(value: isOn, onChanged: (bool Value) {})
                   ],
                 ),

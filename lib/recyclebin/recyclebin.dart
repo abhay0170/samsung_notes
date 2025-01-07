@@ -23,7 +23,7 @@ class Recyclebin extends StatelessWidget {
                 child: Opacity(
                   opacity: 1.0,
                   child: Text(
-                    "All Notes",
+                    "Recycle Bin",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -38,7 +38,7 @@ class Recyclebin extends StatelessWidget {
             toolbarHeight: 50,
             title: Title(
               color: Theme.of(context).colorScheme.surface,
-              child: Text("All Notes"),
+              child: Text("Recycle Bin"),
             ),
             actions: [
               IconButton(onPressed: () {}, icon: Icon(Icons.picture_as_pdf)),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:samsung_notes/screens/create_note/note_model.dart';
@@ -12,12 +14,13 @@ class CreateNote extends HookWidget {
 
     void saveNote() {
       if (titleCntroller.text.isEmpty || bodyController.text.isEmpty) {
+        Navigator.pop(context);
         return;
       }
       final note = Note(
         title: titleCntroller.text,
         body: bodyController.text,
-        );
+      );
       Navigator.pop(context, note);
     }
 
@@ -42,27 +45,202 @@ class CreateNote extends HookWidget {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.remove_red_eye),
+            icon: Icon(Icons.menu_book_rounded),
             tooltip: "Reading Mode",
           ),
-          TextButton(
-              onPressed: () {
-                saveNote();
-              },
-              child: Text(
-                'Save',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+          PopupMenuButton<String>(
+            icon: Icon(Icons.add),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Row(
+                            spacing: 10,
+                            children: [
+                              Icon(
+                                Icons.image,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                "Image",
+                                style: TextStyle(color: Colors.black),
+                              )
+                            ],
+                          )),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10))),
+                          child: Row(
+                            spacing: 10,
+                            children: [
+                              Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.black,
+                              ),
+                              Text(
+                                "Camera",
+                                style: TextStyle(color: Colors.black),
+                              )
+                            ],
+                          )),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Row(
+                        spacing: 10,
+                        children: [
+                          Icon(
+                            Icons.picture_as_pdf_outlined,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "PDF",
+                            style: TextStyle(color: Colors.black),
+                          )
+                        ],
+                      )),
+                ],
               )),
-          IconButton(
-            onPressed: () {
-              
-            },
-            icon: Icon(Icons.more_vert_rounded),
-            tooltip: "More Opptions",
+              PopupMenuDivider(),
+              PopupMenuItem(
+                  child: Row(
+                children: [
+                  Icon(Icons.mic_none),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Voice recording")
+                ],
+              )),
+              PopupMenuItem(
+                  child: Row(
+                children: [
+                  Icon(Icons.music_note_outlined),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Audio file"),
+                ],
+              )),
+              PopupMenuItem(
+                  child: Row(
+                children: [
+                  Icon(Icons.color_lens_outlined),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Drawing"),
+                ],
+              )),
+              PopupMenuItem(
+                  child: Row(
+                children: [
+                  Icon(Icons.check_box_outline_blank),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text("Text box"),
+                ],
+              )),
+            ],
+          ),
+          PopupMenuButton<String>(
+            constraints: BoxConstraints(minWidth: 250),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            itemBuilder: (context) => [
+              PopupMenuItem(child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Row(
+                        spacing: 10,
+                        children: [
+                          Icon(
+                            Icons.edit_document,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Edit cover",
+                            style: TextStyle(color: Colors.black),
+                          )
+                        ],
+                      )),),
+              PopupMenuItem(child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Row(
+                        spacing: 10,
+                        children: [
+                          Icon(
+                            Icons.notes_outlined,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Page template",
+                            style: TextStyle(color: Colors.black),
+                          )
+                        ],
+                      ))),
+              PopupMenuItem(child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Row(
+                        spacing: 10,
+                        children: [
+                          Icon(
+                            Icons.color_lens_outlined,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Background colour",
+                            style: TextStyle(color: Colors.black),
+                          )
+                        ],
+                      ))),
+              PopupMenuDivider(),
+              PopupMenuItem(child: Text("Full screen")),
+              PopupMenuItem(child: Text("Add to")),
+              PopupMenuItem(child: Text("Tag")),
+              PopupMenuItem(child: Text("Save as file")),
+              PopupMenuDivider(),
+              PopupMenuItem(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(onPressed: () {}, icon: Icon(Icons.star_border)),
+                  IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+                  IconButton(
+                      onPressed: () {},
+                      icon: Icon(Icons.delete_outline_outlined))
+                ],
+              ))
+            ],
           )
         ],
       ),
@@ -80,7 +258,6 @@ class CreateNote extends HookWidget {
     );
   }
 }
-
 
 // class PopupMenuExample extends HookWidget {
 //   @override

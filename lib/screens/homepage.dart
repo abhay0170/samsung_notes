@@ -59,7 +59,12 @@ class HomePage extends HookWidget {
             actions: [
               IconButton(onPressed: () {}, icon: Icon(Icons.picture_as_pdf)),
               IconButton(onPressed: () {}, icon: Icon(Icons.search)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.more_vert_rounded)),
+              PopupMenuButton(
+                  itemBuilder: (context) => [
+                        PopupMenuItem(child: Text("Edit")),
+                        PopupMenuItem(child: Text("View")),
+                        PopupMenuItem(child: Text("Unpin favourites from top"))
+                      ])
             ],
           ),
           SliverToBoxAdapter(
